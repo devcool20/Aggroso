@@ -7,7 +7,7 @@ I used **Google Gemini 2.0 Flash**. I chose this because it is fast and handles 
 
 ## How it works
 1. **Prompting**: I wrote a system prompt that tells Gemini to act like a project manager. It looks for tasks, owners, and dates.
-2. **Data Handling**: The AI returns a JSON object. I wrote a small cleanup function in the backend to make sure the JSON is valid before saving it to the SQLite database.
+2. **Data Handling**: The AI returns a JSON object. I wrote a small cleanup function in the backend to make sure the JSON is valid before saving it to the PostgreSQL database.
 3. **Tags**: I also asked the AI to give each task a "tag" based on the context, like "Research" or "Dev", to help with organization.
 
 ## Observations
@@ -16,6 +16,24 @@ I used **Google Gemini 2.0 Flash**. I chose this because it is fast and handles 
 
 ## Technical Build Fixes
 During development and deployment to Vercel, I hit a few technical blockers that I had to resolve:
+
 1. **Next.js 15 Async Params**: Next.js 15 changed how `params` are handled in API routes (they are now Promises). I updated my dynamic routes to `await` the params to fix the TypeScript build errors.
+
 2. **Tailwind Resolution**: I simplified the CSS setup back to standard Tailwind v3. This was necessary because the newer hybrid PostCSS configs were causing pathing issues during the Vercel build phase.
-3. **Database Migration**: Initially used SQLite for local development, but switched to PostgreSQL for Vercel deployment. SQLite doesn't work well on Vercel's serverless environment because the file system is read-only at runtime. PostgreSQL (via Vercel Postgres) provides persistent, cloud-native storage.
+
+3. **Database Migration (SQLite → PostgreSQL)**: 
+   - **Initial Approach**: Started with SQLite for quick local development
+   - **Problem**: SQLite doesn't work on Vercel's serverless environment because:
+     - The file system is read-only at runtime
+     - Database files get wiped between deployments
+     - Can't write new data (all POST requests fail with "Unable to open database file")
+   - **Solution**: Migrated to PostgreSQL using Neon (cloud-hosted database)
+   - **Benefits**: Persistent storage, works perfectly on Vercel, proper production setup
+   
+4. **Prisma Configuration**: Updated the schema from `provider = "sqlite"` to `provider = "postgresql"` and created fresh migrations for the new database.
+
+## Deployment Architecture
+- **Local Development**: Uses Neon PostgreSQL connection string (same as production)
+- **Production (Vercel)**: Connects to the same Neon database via environment variable
+- **Database**: Neon PostgreSQL (free tier, cloud-hosted, persistent)
+- **Migrations**: Run automatically on Vercel via `prisma migrate deploy` in the build script
