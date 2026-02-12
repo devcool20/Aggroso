@@ -4,7 +4,7 @@
   "description": "Meeting Action Items Tracker - Extract and manage action items from meeting transcripts",
   "scripts": {
     "dev": "next dev",
-    "build": "prisma db push && next build",
+    "build": "DATABASE_URL=file:./prisma/dev.db prisma db push && next build",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate"
