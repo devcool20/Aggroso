@@ -13,3 +13,9 @@ I used **Google Gemini 2.0 Flash**. I chose this because it is fast and handles 
 ## Observations
 - The AI is good at finding "hidden" tasks that don't have a clear "To-Do" word near them.
 - Using a newer model like Gemini 2.0 helped avoid the quota errors I had with older models.
+
+## Technical Build Fixes
+During development and deployment to Vercel, I hit a few technical blockers that I had to resolve:
+1. **Next.js 15 Async Params**: Next.js 15 changed how `params` are handled in API routes (they are now Promises). I updated my dynamic routes to `await` the params to fix the TypeScript build errors.
+2. **Tailwind Resolution**: I simplified the CSS setup back to standard Tailwind v3. This was necessary because the newer hybrid PostCSS configs were causing pathing issues during the Vercel build phase.
+3. **Database schema**: I updated the Prisma schema to include `binaryTargets` for RHEL, making sure the SQLite client works correctly in Vercel's serverless environment.
