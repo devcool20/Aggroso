@@ -24,14 +24,20 @@ Aggroso is a simple web tool that helps you get clear action items from meeting 
 3. **Set up Environment**
    - Copy `.env.example` to `.env`.
    - Add your `GEMINI_API_KEY`.
+   - For Vercel, add `DATABASE_URL` with value `file:./dev.db` in settings.
+
 4. **Setup Database**
    ```bash
    npx prisma migrate dev
    ```
+
 5. **Run the app**
    ```bash
    npm run dev
    ```
+
+## 🧪 Testing
+You can find sample transcripts to test the AI in [TRANSCRIPT_EXAMPLES.md](./TRANSCRIPT_EXAMPLES.md). Just copy any example and paste it into the app.
 
 ## Workflow
 1. Paste a meeting transcript in the box.
