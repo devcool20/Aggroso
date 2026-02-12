@@ -1,5 +1,6 @@
-@config "../tailwind.config.js";
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: 0 0% 100%;
@@ -48,36 +49,26 @@
 
 @layer base {
   * {
-    border-color: hsl(var(--border));
+    @apply border-border;
   }
 
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
 @layer utilities {
   .glass {
-    background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl;
   }
 
   .glass-dark {
-    background-color: rgba(17, 24, 39, 0.7);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(31, 41, 55, 0.2);
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    @apply bg-gray-900/70 backdrop-blur-md border border-gray-800/20 shadow-xl;
   }
 
   .text-gradient {
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    background-image: linear-gradient(to right, #0284c7, #4f46e5);
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-indigo-600;
   }
 }
 
