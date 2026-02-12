@@ -18,4 +18,4 @@ I used **Google Gemini 2.0 Flash**. I chose this because it is fast and handles 
 During development and deployment to Vercel, I hit a few technical blockers that I had to resolve:
 1. **Next.js 15 Async Params**: Next.js 15 changed how `params` are handled in API routes (they are now Promises). I updated my dynamic routes to `await` the params to fix the TypeScript build errors.
 2. **Tailwind Resolution**: I simplified the CSS setup back to standard Tailwind v3. This was necessary because the newer hybrid PostCSS configs were causing pathing issues during the Vercel build phase.
-3. **Database schema**: I updated the Prisma schema to include `binaryTargets` for RHEL, making sure the SQLite client works correctly in Vercel's serverless environment.
+3. **Database Migration**: Initially used SQLite for local development, but switched to PostgreSQL for Vercel deployment. SQLite doesn't work well on Vercel's serverless environment because the file system is read-only at runtime. PostgreSQL (via Vercel Postgres) provides persistent, cloud-native storage.

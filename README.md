@@ -11,7 +11,7 @@ Aggroso is a simple web tool that helps you get clear action items from meeting 
 
 ## Tech Stack
 - **Framework**: Next.js 15 (App Router)
-- **Database**: SQLite with Prisma
+- **Database**: PostgreSQL with Prisma
 - **AI**: Google Gemini 2.0 Flash
 - **Styling**: Tailwind CSS & Framer Motion
 
@@ -24,7 +24,9 @@ Aggroso is a simple web tool that helps you get clear action items from meeting 
 3. **Set up Environment**
    - Copy `.env.example` to `.env`.
    - Add your `GEMINI_API_KEY`.
-   - For Vercel, add `DATABASE_URL` with value `file:./dev.db` in settings.
+   - Add your `DATABASE_URL`:
+     - **For Vercel**: Create a Postgres database in Storage tab, connection string is auto-added
+     - **For local**: Use Vercel Postgres URL or install PostgreSQL locally
 
 4. **Setup Database**
    ```bash
@@ -35,6 +37,14 @@ Aggroso is a simple web tool that helps you get clear action items from meeting 
    ```bash
    npm run dev
    ```
+
+## 🚀 Deploying to Vercel
+
+1. Push code to GitHub
+2. Import repository in Vercel
+3. Go to **Storage** tab → Create **Postgres** database
+4. Add `GEMINI_API_KEY` in Environment Variables
+5. Deploy! (Migrations run automatically)
 
 ## 🧪 Testing
 You can find sample transcripts to test the AI in [TRANSCRIPT_EXAMPLES.md](./TRANSCRIPT_EXAMPLES.md). Just copy any example and paste it into the app.
