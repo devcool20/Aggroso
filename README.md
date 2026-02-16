@@ -1,4 +1,4 @@
-# Aggroso - Meeting Action Items Tracker
+# Meeting Liard - Meeting Action Items Tracker
 
 Aggroso is a web tool that helps you extract clear action items from meeting notes. It uses AI to identify tasks, assignees, due dates, and automatically categorize them with tags.
 
